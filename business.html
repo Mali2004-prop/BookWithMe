@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unternehmen registrieren – BookWithMe</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="index.html">BookWithMe</a>
+      <nav class="nav-right">
+        <select id="langSelect" class="lang-select" aria-label="Sprache">
+          <option value="de">DE</option>
+          <option value="en">EN</option>
+        </select>
+        <button class="btn ghost" id="authBtn" aria-haspopup="dialog" aria-controls="authModal">Einloggen / Registrieren</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="shop-hero card">
+      <div>
+        <h1 data-i18n="bizTitle">Unternehmen registrieren</h1>
+        <p class="muted" data-i18n="bizSubtitle">Kostenlos starten – später auf Pro upgraden. Angebote können jederzeit ergänzt werden.</p>
+      </div>
+    </section>
+
+    <section class="card" style="padding:20px">
+      <form id="bizForm" class="biz-form">
+        <div class="row2">
+          <div>
+            <label data-i18n="bizName">Firmenname</label>
+            <input required id="bizName" placeholder="Salon Beispiel" />
+          </div>
+          <div>
+            <label data-i18n="city">Stadt</label>
+            <input required id="bizCity" placeholder="Berlin" />
+          </div>
+        </div>
+        <div class="row2">
+          <div>
+            <label>E-Mail</label>
+            <input required id="bizEmail" type="email" placeholder="salon@example.com" />
+          </div>
+          <div>
+            <label data-i18n="address">Adresse (optional)</label>
+            <input id="bizAddress" placeholder="Musterstraße 1" />
+          </div>
+        </div>
+
+        <h3 style="margin-top:10px" data-i18n="offers">Angebote</h3>
+        <div id="offers" class="offers"></div>
+        <div class="offer-add">
+          <input id="offerName" placeholder="z. B. Haarschnitt" />
+          <input id="offerPrice" placeholder="Preis (EUR)" />
+          <button class="btn small" id="addOfferBtn" type="button" data-i18n="addOffer">Angebot hinzufügen</button>
+        </div>
+
+        <div style="text-align:right;margin-top:12px">
+          <button class="btn ghost" type="reset" data-i18n="reset">Zurücksetzen</button>
+          <button class="btn" type="submit" data-i18n="createBiz">Jetzt kostenlos erstellen</button>
+        </div>
+      </form>
+      <p id="bizFeedback" class="muted" style="margin-top:8px"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <p class="muted">© <span id="year"></span> BookWithMe</p>
+  </footer>
+
+  <dialog id="authModal" class="modal">
+    <form method="dialog" class="modal-card">
+      <header class="modal-head">
+        <strong data-i18n="authTitle">Einloggen / Registrieren</strong>
+        <button class="icon-btn" value="cancel" aria-label="Schließen">×</button>
+      </header>
+      <div class="modal-body">
+        <label for="authEmail" data-i18n="email">E-Mail</label>
+        <input id="authEmail" type="email" placeholder="du@example.com" required />
+        <label for="authName" data-i18n="nameOptional">Name (optional)</label>
+        <input id="authName" type="text" placeholder="Max Mustermann" />
+      </div>
+      <footer class="modal-foot">
+        <button class="btn ghost" value="cancel" data-i18n="cancel">Abbrechen</button>
+        <button class="btn" id="authSubmit" value="default" data-i18n="continue">Weiter</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
