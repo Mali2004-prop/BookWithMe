@@ -3,230 +3,89 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BookWithMe – Terminbuchung für KMU</title>
-  <meta name="description" content="BookWithMe ist eine einfache SaaS-Lösung für Terminbuchung, KI-Beratung der Kunden, automatische Rechnungen als PDF und Erinnerungen per SMS/E-Mail." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <title>BookWithMe – Finde Shops & buche Termine</title>
+  <meta name="description" content="Minimalistische Terminplattform: Finde verbundene Shops auf der Karte, suche per Leiste oder lass dir von der KI helfen." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a class="logo" href="#"><span>Book</span>WithMe</a>
-      <nav>
-        <a href="#features">Funktionen</a>
-        <a href="#pricing">Preise</a>
-        <a href="#kontakt">Kontakt</a>
-        <a class="btn small ghost" href="#demo">Demo</a>
+      <a class="logo" href="index.html">BookWithMe</a>
+      <nav class="nav-right">
+        <button class="btn ghost" id="authBtn" aria-haspopup="dialog" aria-controls="authModal">Einloggen / Registrieren</button>
       </nav>
     </div>
   </header>
 
-  <section class="hero container">
-    <div class="hero-text">
-      <h1>Terminbuchung, die sich um alles kümmert.</h1>
-      <p class="lead">Für Friseure und alle KMU: Online-Buchung, KI-Beratung der Kunden, automatische PDF-Rechnungen und Erinnerungen per SMS/E-Mail – in einem Tool.</p>
-      <div class="cta">
-        <a class="btn" href="#signup">Jetzt starten</a>
-        <a class="btn ghost" href="#demo">Live-Demo</a>
-      </div>
-      <div class="badges">
-        <span class="badge">⚡️ Schnell einrichten</span>
-        <span class="badge">🔐 DSGVO-freundlich</span>
-        <span class="badge">📱 Mobil-optimiert</span>
-      </div>
-    </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="card shadow">
-        <div class="card-header">
-          <strong>Salon Glückssträhne</strong>
-          <small>Heute</small>
-        </div>
-        <ul class="slots">
-          <li>
-            <span>09:00</span>
-            <strong>Haarschnitt</strong>
-            <button class="chip">Buchen</button>
-          </li>
-          <li>
-            <span>10:30</span>
-            <strong>Balayage</strong>
-            <button class="chip">Buchen</button>
-          </li>
-          <li>
-            <span>12:00</span>
-            <strong>Bart &amp; Pflege</strong>
-            <button class="chip">Buchen</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <main class="container">
+    <section class="search-block card">
+      <form id="searchForm" class="search-form" autocomplete="off">
+        <input id="searchInput" type="search" placeholder="Suche nach Shop, Stadt oder Service …" aria-label="Shop-Suche" />
+        <button class="btn" type="submit">Suchen</button>
+      </form>
+      <ul id="searchResults" class="results" role="listbox" aria-label="Suchergebnisse"></ul>
+    </section>
 
-  <section id="who" class="two-panels container">
-    <div class="panel">
-      <h2>Für Unternehmen</h2>
-      <p>Ein zentrales Dashboard für Angebot &amp; Preise, Kalender, Rechnungen und Erinnerungen. Spare Zeit – kein Hin-und-Her mehr am Telefon.</p>
-      <a class="btn small" href="#login-business">Login Unternehmen</a>
-    </div>
-    <div class="panel">
-      <h2>Für Kunden</h2>
-      <p>Finde den richtigen Service in Sekunden: Unsere KI stellt ein paar Fragen und empfiehlt passend <em>Haarschnitt, Farbe, Pflege</em> – und bucht direkt.</p>
-      <a class="btn small ghost" href="#login-customer">Login Kunde</a>
-    </div>
-  </section>
+    <section class="map-block card">
+      <div id="map" aria-label="Karte mit allen Shops"></div>
+    </section>
 
-  <section id="features" class="features container">
-    <h2>Alles drin – out of the box</h2>
-    <div class="grid">
-      <div class="feature">
-        <div class="icon">📅</div>
-        <h3>Online-Kalender</h3>
-        <p>Echtzeit-Verfügbarkeiten, Auslastung &amp; Sperrzeiten. iCal/Google-Sync vorbereitet.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🤖</div>
-        <h3>KI-Beratung</h3>
-        <p>Geführte Fragen für unsichere Kunden; Vorschläge je nach Haarlänge, Stil &amp; Budget.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🧾</div>
-        <h3>PDF-Rechnungen</h3>
-        <p>Automatisch generiert, per E-Mail versendet oder als Download bereitgestellt.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">✉️</div>
-        <h3>Erinnerungen</h3>
-        <p>SMS/E-Mail-Reminder, um No-Shows zu reduzieren. Zeitpunkte frei konfigurierbar.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">💳</div>
-        <h3>Zahlung vor Ort &amp; online</h3>
-        <p>Support für Kartenzahlung im Laden und Online-Checkout (Stripe-ready).</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🧩</div>
-        <h3>Website-Bausteine</h3>
-        <p>Für jeden Salon/KMU gibt es eine Mini-Seite mit Buchungs-Widget – direkt nutzbar.</p>
-      </div>
-    </div>
-  </section>
+    <section class="ai-block">
+      <button class="ai-card card" id="aiOpen" aria-haspopup="dialog" aria-controls="aiModal">
+        <span class="ai-dot" aria-hidden="true"></span>
+        <strong>KI Support</strong>
+        <span class="muted">Frag nach dem passenden Service oder einem Shop in deiner Nähe</span>
+      </button>
+    </section>
+  </main>
 
-  <section id="demo" class="demo container">
-    <h2>Interaktive Mini-Demo</h2>
-    <form class="demo-form" aria-label="KI-Beratung Demo" onsubmit="return fakeAssistant(event)">
-      <label for="hair">Haartyp</label>
-      <select id="hair" required>
-        <option value="">Bitte wählen…</option>
-        <option value="kurz">Kurz</option>
-        <option value="mittel">Mittel</option>
-        <option value="lang">Lang</option>
-      </select>
-
-      <label for="goal">Ziel</label>
-      <select id="goal" required>
-        <option value="">Bitte wählen…</option>
-        <option value="auffrischen">Auffrischen</option>
-        <option value="verändern">Stil verändern</option>
-        <option value="farbe">Farbe/Highlights</option>
-      </select>
-
-      <label for="budget">Budget</label>
-      <select id="budget" required>
-        <option value="">Bitte wählen…</option>
-        <option value="basic">€</option>
-        <option value="standard">€€</option>
-        <option value="premium">€€€</option>
-      </select>
-
-      <button class="btn" type="submit">Vorschlag anzeigen</button>
-    </form>
-    <div id="demo-result" class="demo-result" role="status" aria-live="polite"></div>
-  </section>
-
-  <section id="pricing" class="pricing container">
-    <h2>Preise</h2>
-    <div class="grid">
-      <div class="price-card">
-        <h3>Starter</h3>
-        <p class="price">€19 <span>/ Monat</span></p>
-        <ul>
-          <li>1 Standort</li>
-          <li>Online-Buchung</li>
-          <li>E-Mail-Erinnerungen</li>
-        </ul>
-        <a class="btn small" href="#signup">Loslegen</a>
-      </div>
-      <div class="price-card featured">
-        <h3>Pro</h3>
-        <p class="price">€49 <span>/ Monat</span></p>
-        <ul>
-          <li>Alles aus Starter</li>
-          <li>KI-Beratung</li>
-          <li>PDF-Rechnungen</li>
-          <li>SMS-Erinnerungen</li>
-        </ul>
-        <a class="btn small" href="#signup">Kostenlos testen</a>
-      </div>
-      <div class="price-card">
-        <h3>Business</h3>
-        <p class="price">€99 <span>/ Monat</span></p>
-        <ul>
-          <li>Mehrere Standorte</li>
-          <li>Team-Kalender</li>
-          <li>Priorisierter Support</li>
-        </ul>
-        <a class="btn small" href="#signup">Anfragen</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="kontakt" class="contact container">
-    <h2>Kontakt</h2>
-    <form id="contactForm" onsubmit="return handleContact(event)">
-      <div class="row">
-        <div class="col">
-          <label for="name">Name</label>
-          <input id="name" name="name" required placeholder="Max Mustermann" />
-        </div>
-        <div class="col">
-          <label for="email">E-Mail</label>
-          <input id="email" name="email" type="email" required placeholder="max@example.com" />
-        </div>
-      </div>
-      <label for="message">Nachricht</label>
-      <textarea id="message" name="message" rows="4" placeholder="Ich möchte BookWithMe testen…"></textarea>
-      <button class="btn" type="submit">Senden</button>
-      <p id="contactFeedback" class="feedback" role="status" aria-live="polite"></p>
-    </form>
-  </section>
-
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <a class="logo" href="#"><span>Book</span>WithMe</a>
-        <p class="muted">© <span id="year"></span> BookWithMe. Alle Rechte vorbehalten.</p>
-      </div>
-      <div>
-        <h4>Ressourcen</h4>
-        <ul>
-          <li><a href="#">Dokumentation</a></li>
-          <li><a href="#">Status</a></li>
-          <li><a href="#">Datenschutz</a></li>
-          <li><a href="#">AGB</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Produkt</h4>
-        <ul>
-          <li><a href="#features">Funktionen</a></li>
-          <li><a href="#pricing">Preise</a></li>
-          <li><a href="#demo">Demo</a></li>
-        </ul>
-      </div>
-    </div>
+  <footer class="site-footer container">
+    <p class="muted">© <span id="year"></span> BookWithMe</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Auth Modal -->
+  <dialog id="authModal" class="modal">
+    <form method="dialog" class="modal-card">
+      <header class="modal-head">
+        <strong>Einloggen / Registrieren</strong>
+        <button class="icon-btn" value="cancel" aria-label="Schließen">×</button>
+      </header>
+      <div class="modal-body">
+        <label for="authEmail">E-Mail</label>
+        <input id="authEmail" type="email" placeholder="du@example.com" required />
+        <label for="authName">Name (optional)</label>
+        <input id="authName" type="text" placeholder="Max Mustermann" />
+      </div>
+      <footer class="modal-foot">
+        <button class="btn ghost" value="cancel">Abbrechen</button>
+        <button class="btn" id="authSubmit" value="default">Weiter</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- AI Modal -->
+  <dialog id="aiModal" class="modal">
+    <form method="dialog" class="modal-card ai">
+      <header class="modal-head">
+        <strong>KI Support</strong>
+        <button class="icon-btn" value="cancel" aria-label="Schließen">×</button>
+      </header>
+      <div class="modal-body">
+        <div class="ai-chat">
+          <div class="ai-messages" id="aiMessages" aria-live="polite" aria-label="KI Antworten"></div>
+          <div class="ai-input">
+            <input id="aiQuestion" type="text" placeholder="Z. B. 'Ich will heute einen Haarschnitt in Berlin'…" />
+            <button class="btn" id="aiAsk" type="button">Fragen</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
 </body>
 </html>
